@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.0.2'
+    id 'io.spring.dependency-management' version '1.1.0'
+    id "com.netflix.dgs.codegen" version "5.6.9"
+}
+
+group = 'com.ldbmcs'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.0'
+    implementation 'com.baomidou:mybatis-plus-boot-starter:3.5.3.1'
+    implementation "org.springframework:spring-aspects"
+    implementation 'org.flywaydb:flyway-mysql'
+    implementation 'cn.hutool:hutool-all:5.8.11'
+    implementation "org.springframework.boot:spring-boot-starter-data-redis"
+    implementation(platform("com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:latest.release"))
+    implementation "com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter"
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation "org.spockframework:spock-core:2.2-M1-groovy-3.0"
+    testImplementation "org.spockframework:spock-spring:2.2-M1-groovy-3.0"
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+generateJava{
+    schemaPaths = ["${projectDir}/src/main/resources/schema"] // List of directories containing schema files
+    packageName = 'com.example.packagename' // The package name to use to generate sources
+    generateClient = true // Enable generating the type safe query API
+}
