@@ -2,7 +2,6 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.0.2'
     id 'io.spring.dependency-management' version '1.1.0'
-    id "com.netflix.dgs.codegen" version "5.6.9"
 }
 
 group = 'com.ldbmcs'
@@ -42,10 +41,4 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
-}
-
-generateJava{
-    schemaPaths = ["${projectDir}/src/main/resources/schema"] // List of directories containing schema files
-    packageName = 'com.example.packagename' // The package name to use to generate sources
-    generateClient = true // Enable generating the type safe query API
 }
