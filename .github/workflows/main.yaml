@@ -54,3 +54,10 @@ jobs:
           host: ${{ secrets.HOST }}
           user: ${{ secrets.USER }}
           key: ${{ secrets.PRIVATE_KEY}}
+
+      - name: Invoke deployment hook
+        uses: distributhor/workflow-webhook@v2
+        if: failure()
+        env:
+          webhook_url: ${{ secrets.WEBHOOK_URL }}
+          webhook_secret: ${{ secrets.WEBHOOK_SECRET }}
