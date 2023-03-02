@@ -1,0 +1,17 @@
+apply plugin: 'checkstyle'
+
+checkstyle {
+    toolVersion = 8.23
+}
+
+checkstyleMain {
+    configFile = file("${rootProject.projectDir}/gradle/config/checkstyle/checkstyle.xml")
+    exclude '**/com/ldbmcs/marsdgs/MarsDgsApplication.java'
+}
+
+checkstyleTest {
+    configFile = file("${rootProject.projectDir}/gradle/config/checkstyle/checkstyle-test.xml")
+}
+
+task checkstyle(dependsOn: [checkstyleMain, checkstyleTest]) {
+}

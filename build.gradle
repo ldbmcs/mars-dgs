@@ -2,6 +2,8 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.0.2'
     id 'io.spring.dependency-management' version '1.1.0'
+    id 'groovy'
+    id 'jacoco'
 }
 
 group = 'com.ldbmcs'
@@ -29,16 +31,51 @@ dependencies {
     implementation(platform("com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:latest.release"))
     implementation "com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter"
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.apache.groovy:groovy'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     runtimeOnly 'com.mysql:mysql-connector-j'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation "org.spockframework:spock-core:2.2-M1-groovy-3.0"
-    testImplementation "org.spockframework:spock-spring:2.2-M1-groovy-3.0"
+    testImplementation "org.spockframework:spock-core:2.2-M1-groovy-4.0"
+    testImplementation "org.spockframework:spock-spring:2.2-M1-groovy-4.0"
 }
 
-tasks.named('test') {
+apply from: "gradle/check.gradle"
+
+test {
     useJUnitPlatform()
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination file("${buildDir}/reports/jacoco")
+    }
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = 0
+            }
+        }
+        rule {
+            limit {
+                counter = 'BRANCH'
+                value = 'COVEREDRATIO'
+                minimum = 0
+            }
+        }
+        rule {
+            limit {
+                counter = 'LINE'
+                value = 'COVEREDRATIO'
+                minimum = 0
+            }
+        }
+    }
 }
