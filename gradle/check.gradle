@@ -1,0 +1,13 @@
+apply plugin: 'checkstyle'
+
+checkstyle {
+    toolVersion = 8.23
+}
+
+task checkstyle(dependsOn: [checkstyleMain, checkstyleTest]) {
+
+}
+
+tasks.withType(Checkstyle) {
+    exclude 'com/ldbmcs/dgs/DgsApplication.java'
+}

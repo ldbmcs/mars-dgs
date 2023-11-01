@@ -1,0 +1,27 @@
+type User {
+  id: ID!
+  name: String!
+  mobile: String!
+  email: String
+  createdAt: String
+}
+
+input SignInUserInput {
+  principal: String!
+  credential: String!
+}
+
+type SignInUserPayload {
+  user: User
+  token: String
+}
+
+input SignUpUserInput {
+  mobile: String!
+  password: String!
+  name: String!
+}
+
+type SignUpUserPayload {
+  user: User
+}

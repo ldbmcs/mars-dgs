@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+echo "Start flywayClean..."
+#./gradlew -Dflyway.url=jdbc:postgresql://localhost:"${XM_DB_PORT}"/knowhowxm_x_test -Dflyway.user=postgres -Dflyway.password= flywayClean
+echo "flywayClean done! Start run test..."
+./gradlew clean checkstyle test  jacocoTestReport jacocoTestCoverageVerification

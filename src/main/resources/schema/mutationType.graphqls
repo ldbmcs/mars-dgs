@@ -1,0 +1,5 @@
+type Mutation {
+  signInUser(input: SignInUserInput!): SignInUserPayload!
+  signUpUser(input: SignUpUserInput!): SignUpUserPayload!
+  logout: Boolean!
+}
